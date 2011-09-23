@@ -153,4 +153,8 @@ public class PermutationGenerator<T> implements Iterator<List<T>>, Iterable<List
 	public List<T> get(final int index) {
 		return permutationByIndex2(index);
 	}
+	
+	public int size() {
+		return lastPermutationIndex+1;
+	}
 }
