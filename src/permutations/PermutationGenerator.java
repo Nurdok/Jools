@@ -32,7 +32,7 @@ public class PermutationGenerator<T> implements Iterator<List<T>>, Iterable<List
 	
 	//TODO: replace with fast implementation
 	public int factorial(final int n) {
-		return (n == 1) ? 1 : factorial(n-1) * n;
+		return (n == 1 || n == 0) ? 1 : factorial(n-1) * n;
 	}
 	
 	@Override
@@ -70,22 +70,35 @@ public class PermutationGenerator<T> implements Iterator<List<T>>, Iterable<List
 	
 	private List<T> permutationByIndex(int index)
 	{
-		final List<T> permutation = new LinkedList<T>();
+		final List<T> permutation = new LinkedList<T>(permutationObjects);
 	    int r = 1, m;
-	    for(int i = 0; i < permutationSize; i++) {
-			permutation.set(i, permutationObjects.get(i));
-		}
-
-	    while (r < permutationSize)
-	    {
-	        m = index%(r+1);
-	        index = index/(r+1);
-	        final T temp = permutation.get(r);
-	        permutation.set(r, permutation.get(m));
-	        permutation.set(m, temp);
+	    
+	    while (r < permutationSize) {
+			m = index % (r+1);
+	        index = index / (r+1);
+	        final T tR = permutation.get(r);
+	        final T tM = permutation.get(m);
+	        permutation.set(r, tM);
+	        permutation.set(m, tR);
 	        r++;
 	    }
 	    return permutation;
+	}
+	
+	private List<T> permutationByIndex2(int index) {
+		final List<T> permutation = new LinkedList<T>();
+		final List<T> permutationObjectsBank = new LinkedList<T>(permutationObjects);
+		
+		for (int i=0; i<permutationSize; ++i) {
+			final int f = factorial((permutationSize - i - 1));
+			final int objectIndex = index / f;
+			index %= f;
+			final T t = permutationObjectsBank.get(objectIndex);
+			permutationObjectsBank.remove(objectIndex);
+			permutation.add(t);
+		}
+		
+		return permutation;
 	}
 	
 	private void reverseFrom(final int i) {
@@ -135,6 +148,6 @@ public class PermutationGenerator<T> implements Iterator<List<T>>, Iterable<List
 	}
 	
 	public List<T> get(final int index) {
-		return permutationByIndex(index);
+		return permutationByIndex2(index);
 	}
 }

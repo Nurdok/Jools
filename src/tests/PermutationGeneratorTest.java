@@ -3,7 +3,7 @@
  */
 package tests;
 
-import static org.junit.Assert.fail;
+import static org.junit.Assert.assertEquals;
 
 import java.util.Arrays;
 import java.util.List;
@@ -33,11 +33,22 @@ public class PermutationGeneratorTest {
 	 */
 	@Test
 	public void testNext() {
-		for (final List<String> permutation : pg) {
-			System.out.println(permutation);
-		}
-		System.out.println(pg.get(3));
-		fail("Not yet implemented"); // TODO
+		assert(pg.hasNext());
+		List<String> permutation = pg.next();
+		assertEquals(permutation, Arrays.asList("a", "b", "c"));
+		assert(pg.hasNext());
+		permutation = pg.next();
+		assertEquals(permutation, Arrays.asList("a", "c", "b"));
+	}
+	
+	@Test
+	public void testGet() {
+		assertEquals(Arrays.asList("a", "b", "c"), pg.get(0));
+		assertEquals(Arrays.asList("a", "c", "b"), pg.get(1));
+		assertEquals(Arrays.asList("b", "a", "c"), pg.get(2));
+		assertEquals(Arrays.asList("b", "c", "a"), pg.get(3));
+		assertEquals(Arrays.asList("c", "a", "b"), pg.get(4));
+		assertEquals(Arrays.asList("c", "b", "a"), pg.get(5));
 	}
 
 }
