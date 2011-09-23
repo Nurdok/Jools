@@ -1,7 +1,7 @@
 /**
  * 
  */
-package tests;
+package com.rachum.amir.util.permutation.test;
 
 import static org.junit.Assert.assertEquals;
 
@@ -11,7 +11,8 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import permutations.PermutationGenerator;
+import com.rachum.amir.util.permutation.PermutationGenerator;
+
 
 /**
  * @author Rachum
@@ -29,7 +30,7 @@ public class PermutationGeneratorTest {
 	}
 
 	/**
-	 * Test method for {@link permutations.PermutationGenerator#next()}.
+	 * Test method for {@link com.rachum.amir.util.permutation.PermutationGenerator#next()}.
 	 */
 	@Test
 	public void testNext() {
@@ -49,6 +50,16 @@ public class PermutationGeneratorTest {
 		assertEquals(Arrays.asList("b", "c", "a"), pg.get(3));
 		assertEquals(Arrays.asList("c", "a", "b"), pg.get(4));
 		assertEquals(Arrays.asList("c", "b", "a"), pg.get(5));
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testIllegalGetMinus() {
+		pg.get(-1);
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testIllegalGetTooBig() {
+		pg.get(6);
 	}
 
 }

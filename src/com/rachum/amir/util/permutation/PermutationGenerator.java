@@ -1,4 +1,4 @@
-package permutations;
+package com.rachum.amir.util.permutation;
 
 import java.util.Collections;
 import java.util.Iterator;
@@ -16,7 +16,7 @@ public class PermutationGenerator<T> implements Iterator<List<T>>, Iterable<List
 	public PermutationGenerator(final List<T> list) {
 		this.permutationObjects = list;
 		this.permutationSize = list.size();
-		this.lastPermutationIndex = factorial(permutationSize);
+		this.lastPermutationIndex = factorial(permutationSize) - 1;
 		permutation = new LinkedList<T>();
 		permutation.addAll(list);
 	}
@@ -86,6 +86,9 @@ public class PermutationGenerator<T> implements Iterator<List<T>>, Iterable<List
 	}
 	
 	private List<T> permutationByIndex2(int index) {
+		if (index > lastPermutationIndex || index < 0) {
+			throw new IllegalArgumentException();
+		}
 		final List<T> permutation = new LinkedList<T>();
 		final List<T> permutationObjectsBank = new LinkedList<T>(permutationObjects);
 		
