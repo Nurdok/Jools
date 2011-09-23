@@ -31,7 +31,7 @@ public class PermutationGenerator<T> implements Iterator<List<T>>, Iterable<List
 	}
 	
 	//TODO: replace with fast implementation
-	public int factorial(final int n) {
+	public static int factorial(final int n) {
 		return (n == 1 || n == 0) ? 1 : factorial(n-1) * n;
 	}
 	

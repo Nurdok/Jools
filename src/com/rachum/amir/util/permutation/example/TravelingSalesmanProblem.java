@@ -5,6 +5,7 @@ package com.rachum.amir.util.permutation.example;
 
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,11 +17,16 @@ import com.rachum.amir.util.permutation.PermutationGenerator;
  */
 public class TravelingSalesmanProblem {
 	
-	private Map<String, Point> citiesCoord;
+	private final Map<String, Point> citiesCoord;
 
 	public TravelingSalesmanProblem(final int numOfCities) {
 		super();
-		//TODO generate cities randomly
+		citiesCoord = new HashMap<String, Point>();
+		citiesCoord.put("A", new Point(0,0));
+		citiesCoord.put("B", new Point(2,9));
+		citiesCoord.put("C", new Point(8,5));
+		citiesCoord.put("D", new Point(2,10));
+		citiesCoord.put("E", new Point(2,3));
 	}
 
 	/**
@@ -30,21 +36,30 @@ public class TravelingSalesmanProblem {
 		//List<String> route;
 		final TravelingSalesmanProblem tsp = new TravelingSalesmanProblem(10);
 		final PermutationGenerator<String> routeGenerator =
+			//new PermutationGenerator<String>(Arrays.asList("A","B","C","D","E"));
 			new PermutationGenerator<String>(new ArrayList<String>(tsp.citiesCoord.keySet()));
 		
-		final int threshold = Integer.MAX_VALUE;
+		int threshold = Integer.MAX_VALUE;
 		List<String> bestRoute = routeGenerator.get(0);
 		boolean skip = false;
-		for (int i=0; i<routeGenerator.size(); ++i) {
+		int routesChecked = 0;
+		for (int i=0; i<routeGenerator.size()/tsp.citiesCoord.size(); ++i, ++routesChecked) {
 			final List<String> route = routeGenerator.get(i);
 			int length = 0;
-			for (int j=1; i<route.size(); ++j) {
+			skip = false;
+			for (int j=0; j<route.size(); ++j) {
 				final Point p1 = tsp.citiesCoord.get(route.get(j));
-				final Point p2 = tsp.citiesCoord.get(route.get(j-1));
+				Point p2 = null;
+				if (j == 0) {
+					p2 = tsp.citiesCoord.get(route.get(route.size()-1));
+				} else {
+					p2 = tsp.citiesCoord.get(route.get(j-1));
+				}
 				length += p1.distance(p2);
 				
-				if (length > threshold) {
-					i += factorial(route.size() - j) - 1;
+				if (length > threshold && threshold != Integer.MAX_VALUE) {
+					i += PermutationGenerator.factorial(route.size() - j + 1) - 1;
+					System.out.println("Route " + route + " is too long, skipping " + PermutationGenerator.factorial(route.size() - j + 1) + " routes.");
 					skip = true;
 					break;
 				}
@@ -52,10 +67,11 @@ public class TravelingSalesmanProblem {
 			if (!skip) {
 				threshold = length;
 				bestRoute = route;
-				skip = false;
+				System.out.println("Route " + route + " is a new minimum, setting threshold at " + threshold);
 			}
 		}
-		System.out.println();
+		System.out.println("Best route is " + bestRoute + ", length is " + threshold);
+		System.out.println("Checked " + routesChecked + " out of " + routeGenerator.size()/tsp.citiesCoord.size() + " possible routes.");
 	}
 
 }
