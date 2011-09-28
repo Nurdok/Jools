@@ -26,7 +26,7 @@ public class PermutationGeneratorTest {
 	 */
 	@Before
 	public void setUp() throws Exception {
-		pg = new PermutationGenerator<String>(Arrays.asList("a", "b", "c"));
+		pg = new PermutationGenerator<String>("a", "b", "c");
 	}
 
 	/**

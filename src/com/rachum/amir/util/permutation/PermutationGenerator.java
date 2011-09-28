@@ -1,5 +1,6 @@
 package com.rachum.amir.util.permutation;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -12,6 +13,10 @@ public class PermutationGenerator<T> implements Iterator<List<T>>, Iterable<List
 	private int currentPermutationIndex = -1; //TODO: think about numbering
 	private final int lastPermutationIndex;
 	private final List<T> permutation;
+	
+	public PermutationGenerator(final T... ts) {
+		this(Arrays.asList(ts));
+	}
 
 	public PermutationGenerator(final List<T> list) {
 		this.permutationObjects = list;

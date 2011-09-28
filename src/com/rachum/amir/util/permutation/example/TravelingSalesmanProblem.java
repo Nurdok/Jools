@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import com.rachum.amir.util.permutation.PermutationGenerator;
 
@@ -22,15 +23,32 @@ public class TravelingSalesmanProblem {
 	public TravelingSalesmanProblem() {
 		super();
 		citiesCoord = new HashMap<String, Point>();
-		citiesCoord.put("A", new Point(0,0));
-		citiesCoord.put("B", new Point(2,9));
-		citiesCoord.put("C", new Point(8,5));
-		citiesCoord.put("D", new Point(2,10));
-		citiesCoord.put("E", new Point(2,3));
+		
+		final Random rand = new Random();
+		final int numOfCities = Math.max(4, rand.nextInt(20));
+		for (int i=0; i<numOfCities; ++i) {
+			citiesCoord.put("A" + i, new Point(rand.nextInt(100),rand.nextInt(100)));
+			System.out.println("A" + i + " (" + citiesCoord.get("A" + i).getX() + ", " + citiesCoord.get("A" + i).getY() + ")");
+		}
+	}
+	
+	private double accumulateDistance(final List<String> route, final int cityIndex) {
+		final Point p1 = citiesCoord.get(route.get(cityIndex));
+		Point p2 = null;
+		if (cityIndex == 0) {
+			p2 = citiesCoord.get(route.get(route.size()-1));
+		} else {
+			p2 = citiesCoord.get(route.get(cityIndex-1));
+		}
+		return p1.distance(p2);
 	}
 	
 	private int calculateRouteLength(final List<String> route) {
-		return 0;
+		int length = 0;
+		for (int i=0; i<route.size(); ++i) {
+			length += accumulateDistance(route, i);
+		}
+		return length;
 	}
 	
 	public List<String> naiveSolve() {
@@ -46,44 +64,43 @@ public class TravelingSalesmanProblem {
 				minRoute = route;
 			}
 		}
+		System.out.println("Best route is " + minRoute + ", length is " + minRouteLength);
 		return minRoute;
 	}
 	
 	
 	public List<String> thresholdSolve() {
 		final PermutationGenerator<String> routeGenerator =
-			//new PermutationGenerator<String>(Arrays.asList("A","B","C","D","E"));
 			new PermutationGenerator<String>(new ArrayList<String>(citiesCoord.keySet()));
 		
 		int threshold = Integer.MAX_VALUE;
 		List<String> bestRoute = routeGenerator.get(0);
 		boolean skip = false;
 		int routesChecked = 0;
-		for (int i=0; i<routeGenerator.size()/citiesCoord.size(); ++i, ++routesChecked) {
+		int i = 0;
+		while (i<routeGenerator.size()/citiesCoord.size()) {
+			routesChecked++;
 			final List<String> route = routeGenerator.get(i);
 			int length = 0;
 			skip = false;
 			for (int j=0; j<route.size(); ++j) {
-				final Point p1 = citiesCoord.get(route.get(j));
-				Point p2 = null;
-				if (j == 0) {
-					p2 = citiesCoord.get(route.get(route.size()-1));
-				} else {
-					p2 = citiesCoord.get(route.get(j-1));
-				}
-				length += p1.distance(p2);
+				length += accumulateDistance(route, j);
 				
 				if (length > threshold && threshold != Integer.MAX_VALUE) {
-					i += PermutationGenerator.factorial(route.size() - j + 1) - 1;
-					System.out.println("Route " + route + " is too long, skipping " + PermutationGenerator.factorial(route.size() - j + 1) + " routes.");
+					final int routesToSkip = PermutationGenerator.factorial(route.size() - j);
+					System.out.println("Route " + i + ": " + route + " is too long (length is " + length + " at " + route.get(j) +"), advancing " + routesToSkip + " routes.");
+					i += routesToSkip;
 					skip = true;
 					break;
 				}
 			}
 			if (!skip) {
-				threshold = length;
-				bestRoute = route;
-				System.out.println("Route " + route + " is a new minimum, setting threshold at " + threshold);
+				if (length < threshold) {
+					threshold = length;
+					bestRoute = route;
+					System.out.println("Route " + i + ": " + route + " is a new minimum, setting threshold at " + threshold);
+				}
+				++i;
 			}
 		}
 		System.out.println("Best route is " + bestRoute + ", length is " + threshold);
@@ -95,10 +112,12 @@ public class TravelingSalesmanProblem {
 	 * @param args
 	 */
 	public static void main(final String[] args) {
-		//List<String> route;
 		final TravelingSalesmanProblem tsp = new TravelingSalesmanProblem();
-		System.out.println("Naive solution: " + tsp.naiveSolve());
-		System.out.println("Threshold solution: " + tsp.thresholdSolve());
+		final List<String> naiveRoute = tsp.naiveSolve();
+		final List<String> thresholdRoute = tsp.thresholdSolve();
+		System.out.println("\n\nNaive solution: " + naiveRoute);
+		System.out.println("Threshold solution: " + thresholdRoute);
+		assert(tsp.calculateRouteLength(naiveRoute) == tsp.calculateRouteLength(thresholdRoute));
 	}
 
 }
