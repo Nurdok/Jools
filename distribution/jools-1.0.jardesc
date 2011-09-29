@@ -15,7 +15,7 @@
         <javaElement handleIdentifier="=Jools/src"/>
         <folder path="/Jools/doc"/>
         <file path="/Jools/.classpath"/>
-        <file path="/Jools/.project"/>
         <file path="/Jools/.gitignore"/>
+        <file path="/Jools/.project"/>
     </selectedElements>
 </jardesc>

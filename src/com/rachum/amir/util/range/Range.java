@@ -6,6 +6,7 @@ package com.rachum.amir.util.range;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 /**
  * @author Rachum
@@ -49,6 +50,9 @@ public class Range implements Iterable<Integer>, Iterator<Integer> {
 
 	@Override
 	public Integer next() {
+		if (next == stop) {
+			throw new NoSuchElementException();
+		}
 		final Integer ret = next;
 		next += step;
 		return ret;
