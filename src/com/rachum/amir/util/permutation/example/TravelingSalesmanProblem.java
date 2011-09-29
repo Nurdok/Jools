@@ -87,7 +87,7 @@ public class TravelingSalesmanProblem {
 				length += accumulateDistance(route, j);
 				
 				if (length > threshold && threshold != Integer.MAX_VALUE) {
-					final int routesToSkip = PermutationGenerator.factorial(route.size() - j);
+					final int routesToSkip = factorial(route.size() - j);
 					System.out.println("Route " + i + ": " + route + " is too long (length is " + length + " at " + route.get(j) +"), advancing " + routesToSkip + " routes.");
 					i += routesToSkip;
 					skip = true;
@@ -106,6 +106,10 @@ public class TravelingSalesmanProblem {
 		System.out.println("Best route is " + bestRoute + ", length is " + threshold);
 		System.out.println("Checked " + routesChecked + " out of " + routeGenerator.size()/citiesCoord.size() + " possible routes.");
 		return bestRoute;
+	}
+
+	static private int factorial(final int n) {
+		return (n == 1 || n == 0) ? 1 : factorial(n-1) * n;
 	}
 
 	/**

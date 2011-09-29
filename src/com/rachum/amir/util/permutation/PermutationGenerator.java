@@ -150,10 +150,18 @@ public class PermutationGenerator<T> implements Iterator<List<T>>, Iterable<List
 		return this;
 	}
 	
+	/**
+	 * @param index the index of the requested permutation, in lexicographic
+	 * order.
+	 * @return the permutation with the specified index.
+	 */
 	public List<T> get(final int index) {
 		return permutationByIndex(index);
 	}
 	
+	/**
+	 * @return the number of permutations available.
+	 */
 	public int size() {
 		return lastPermutationIndex+1;
 	}
