@@ -25,6 +25,9 @@ public class Range implements Iterable<Integer>, Iterator<Integer> {
 	}
 	
 	public Range(final Integer start, final Integer stop, final Integer step) {
+		if (step.equals(0)) {
+			throw new IllegalArgumentException();
+		}
 		this.start = start;
 		this.stop = stop;
 		this.step = step;
@@ -33,7 +36,7 @@ public class Range implements Iterable<Integer>, Iterator<Integer> {
 	
 	public List<Integer> toList() {
 		final List<Integer> list = new ArrayList<Integer>();
-		for (int i=start; i<stop; i+=step) {
+		for (int i=start; (step > 0) ? i<stop : i>stop; i+=step) {
 			list.add(i);
 		}
 		return list;

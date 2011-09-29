@@ -20,6 +20,7 @@ public class Example {
 		}
 		
 		System.out.println((new Range(1,11)).toList());
+		System.out.println((new Range(11,1,-1)).toList());
 	}
 
 }
