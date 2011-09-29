@@ -18,6 +18,11 @@ public class PermutationGenerator<T> implements Iterator<List<T>>, Iterable<List
 		this(Arrays.asList(ts));
 	}
 
+	/**
+	 * @param list a list of objects.
+	 * The order of the list will define the natural ordering of the objects.
+	 * i.e., the given list order is considered the first permutation.
+	 */
 	public PermutationGenerator(final List<T> list) {
 		this.permutationObjects = list;
 		this.permutationSize = list.size();
@@ -26,17 +31,8 @@ public class PermutationGenerator<T> implements Iterator<List<T>>, Iterable<List
 		permutation.addAll(list);
 	}
 
-	public List<T> getPermutation(final int index) {
-		final PermutationGenerator<T> pg = new PermutationGenerator<T>(permutationObjects);
-		List<T> permutationByIndex = null;
-		for (int i=0; i<index; ++i) {
-			permutationByIndex = pg.next();
-		}
-		return permutationByIndex;
-	}
-	
 	//TODO: replace with fast implementation
-	public static int factorial(final int n) {
+	private static int factorial(final int n) {
 		return (n == 1 || n == 0) ? 1 : factorial(n-1) * n;
 	}
 	
@@ -73,24 +69,7 @@ public class PermutationGenerator<T> implements Iterator<List<T>>, Iterable<List
 		return permutation;
 	}
 	
-	private List<T> permutationByIndex(int index)
-	{
-		final List<T> permutation = new LinkedList<T>(permutationObjects);
-	    int r = 1, m;
-	    
-	    while (r < permutationSize) {
-			m = index % (r+1);
-	        index = index / (r+1);
-	        final T tR = permutation.get(r);
-	        final T tM = permutation.get(m);
-	        permutation.set(r, tM);
-	        permutation.set(m, tR);
-	        r++;
-	    }
-	    return permutation;
-	}
-	
-	private List<T> permutationByIndex2(int index) {
+	private List<T> permutationByIndex(int index) {
 		if (index > lastPermutationIndex || index < 0) {
 			throw new IllegalArgumentException();
 		}
@@ -156,7 +135,7 @@ public class PermutationGenerator<T> implements Iterator<List<T>>, Iterable<List
 	}
 	
 	public List<T> get(final int index) {
-		return permutationByIndex2(index);
+		return permutationByIndex(index);
 	}
 	
 	public int size() {
