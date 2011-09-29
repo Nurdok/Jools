@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 /**
  * Gets a list of objects and allows to either iterate over all the
@@ -62,6 +63,9 @@ public class PermutationGenerator<T> implements Iterator<List<T>>, Iterable<List
 
 	@Override
 	public List<T> next() {
+		if (!this.hasNext()) {
+			throw new NoSuchElementException();
+		}
 		currentPermutationIndex++;
 		if (currentPermutationIndex == 0) {
 			return permutation;
