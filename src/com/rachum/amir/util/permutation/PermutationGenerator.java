@@ -6,6 +6,15 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Gets a list of objects and allows to either iterate over all the
+ * permutations on it or get specific permutation by lexicographic ordering.
+ *
+ * @author Amir Rachum
+ * @version 1.0
+ * 
+ * @param <T> the type of objects in the permutations
+ */
 public class PermutationGenerator<T> implements Iterator<List<T>>, Iterable<List<T>> {
 	
 	private final List<T> permutationObjects;
@@ -14,6 +23,11 @@ public class PermutationGenerator<T> implements Iterator<List<T>>, Iterable<List
 	private final int lastPermutationIndex;
 	private final List<T> permutation;
 	
+	/**
+	 * @param ts a list of objects
+	 * 
+	 * @see PermutationGenerator#PermutationGenerator(List)
+	 */
 	public PermutationGenerator(final T... ts) {
 		this(Arrays.asList(ts));
 	}
@@ -22,6 +36,8 @@ public class PermutationGenerator<T> implements Iterator<List<T>>, Iterable<List
 	 * @param list a list of objects.
 	 * The order of the list will define the natural ordering of the objects.
 	 * i.e., the given list order is considered the first permutation.
+	 * 
+	 * @see PermutationGenerator#PermutationGenerator(Object...)
 	 */
 	public PermutationGenerator(final List<T> list) {
 		this.permutationObjects = list;
