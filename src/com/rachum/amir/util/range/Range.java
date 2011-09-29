@@ -1,0 +1,64 @@
+/**
+ * 
+ */
+package com.rachum.amir.util.range;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+/**
+ * @author Rachum
+ *
+ */
+public class Range implements Iterable<Integer>, Iterator<Integer> {
+	final int start, stop, step;
+	int next;
+	
+	
+	public Range(final Integer stop) {
+		this(0, stop, 1);
+	}
+	
+	public Range(final Integer start, final Integer stop) {
+		this(start, stop, 1);
+	}
+	
+	public Range(final Integer start, final Integer stop, final Integer step) {
+		this.start = start;
+		this.stop = stop;
+		this.step = step;
+		this.next = start;
+	}
+	
+	public List<Integer> toList() {
+		final List<Integer> list = new ArrayList<Integer>();
+		for (int i=start; i<stop; i+=step) {
+			list.add(i);
+		}
+		return list;
+	}
+	
+	@Override
+	public boolean hasNext() {
+		return (next != stop);
+	}
+
+	@Override
+	public Integer next() {
+		final Integer ret = next;
+		next += step;
+		return ret;
+	}
+
+	@Override
+	public void remove() {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Iterator<Integer> iterator() {
+		return this;
+	}
+
+}
