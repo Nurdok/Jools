@@ -22,9 +22,6 @@ import com.rachum.amir.util.index.Indexer;
  */
 public class IndexTest {
 	
-	/**
-	 * @throws java.lang.Exception
-	 */
 	@Test
 	public void loopTest() {
 		int i=0;
