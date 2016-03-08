@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.rachum.amir.util.range.test.RangeTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2016-03-08T09:39:33" hostname="maz" time="0.002">
+  <properties/>
+  <testcase name="testNext2" classname="com.rachum.amir.util.range.test.RangeTest" time="0.001"/>
+  <testcase name="testNext" classname="com.rachum.amir.util.range.test.RangeTest" time="0.0"/>
+  <testcase name="testToList" classname="com.rachum.amir.util.range.test.RangeTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
