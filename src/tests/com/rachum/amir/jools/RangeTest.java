@@ -1,7 +1,4 @@
-/**
- * 
- */
-package com.rachum.amir.util.range.test;
+package com.rachum.amir.jools;
 
 import static org.junit.Assert.assertEquals;
 
@@ -10,8 +7,6 @@ import java.util.NoSuchElementException;
 
 import org.junit.Before;
 import org.junit.Test;
-
-import com.rachum.amir.util.range.Range;
 
 /**
  * @author Rachum
@@ -28,7 +23,7 @@ public class RangeTest {
 		r1 = new Range(10);
 		r2 = new Range(20, 25);
 		r3 = new Range(30, 40, 3);
-		r4 = new Range (5, -5, -2);
+		r4 = new Range(5, -5, -2);
 	}
 
 	/**
@@ -36,10 +31,10 @@ public class RangeTest {
 	 */
 	@Test
 	public void testToList() {
-		assertEquals(Arrays.asList(0,1,2,3,4,5,6,7,8,9), r1.toList());
-		assertEquals(Arrays.asList(20,21,22,23,24), r2.toList());
-		assertEquals(Arrays.asList(30,33,36,39), r3.toList());
-		assertEquals(Arrays.asList(5,3,1,-1,-3), r4.toList());
+		assertEquals(Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9), r1.toList());
+		assertEquals(Arrays.asList(20, 21, 22, 23, 24), r2.toList());
+		assertEquals(Arrays.asList(30, 33, 36, 39), r3.toList());
+		assertEquals(Arrays.asList(5, 3, 1, -1, -3), r4.toList());
 	}
 
 	/**
@@ -47,19 +42,19 @@ public class RangeTest {
 	 */
 	@Test
 	public void testNext() {
-		for (int i=0; i<10; ++i) {
+		for (int i = 0; i < 10; ++i) {
 			assertEquals(new Integer(i), r1.next());
 		}
-		
-		for (int i=20; i<25; ++i) {
+
+		for (int i = 20; i < 25; ++i) {
 			assertEquals(new Integer(i), r2.next());
 		}
-		
-		for (int i=30; i<40; i+=3) {
+
+		for (int i = 30; i < 40; i += 3) {
 			assertEquals(new Integer(i), r3.next());
 		}
-		
-		for (int i=5; i>-5; i-=2) {
+
+		for (int i = 5; i > -5; i -= 2) {
 			assertEquals(new Integer(i), r4.next());
 		}
 	}
@@ -67,9 +62,9 @@ public class RangeTest {
 	/**
 	 * Test method for {@link com.rachum.amir.util.range.Range#next()}.
 	 */
-	@Test(expected=NoSuchElementException.class)
+	@Test(expected = NoSuchElementException.class)
 	public void testNext2() {
-		for (int i=0; i<11; ++i) {
+		for (int i = 0; i < 11; ++i) {
 			r1.next();
 		}
 	}

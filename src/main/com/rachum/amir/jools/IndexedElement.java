@@ -1,7 +1,4 @@
-/**
- * 
- */
-package com.rachum.amir.util.index;
+package com.rachum.amir.jools;
 
 /**
  * @author Rachum
@@ -29,5 +26,5 @@ public class IndexedElement<T> {
 	public int getIndex() {
 		return index;
 	}
-	
+
 }

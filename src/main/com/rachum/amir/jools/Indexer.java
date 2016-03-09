@@ -1,7 +1,4 @@
-/**
- * 
- */
-package com.rachum.amir.util.index;
+package com.rachum.amir.jools;
 
 import java.util.Iterator;
 
@@ -35,8 +32,8 @@ public class Indexer<T> implements Iterable<IndexedElement<T>>, Iterator<Indexed
 
 	@Override
 	public void remove() {
-		//TODO: index?
-		//TODO: throw exception?
+		// TODO: index?
+		// TODO: throw exception?
 		iterator.remove();
 	}
 
