@@ -1,8 +1,3 @@
-/**
- * 
- */
-package com.rachum.amir.util.index.example;
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -13,7 +8,7 @@ import com.rachum.amir.util.index.Indexer;
  * @author Rachum
  *
  */
-public class Example {
+public class PermutationExample {
 
 	/**
 	 * @param args

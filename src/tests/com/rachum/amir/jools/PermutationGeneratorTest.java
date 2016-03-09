@@ -1,7 +1,4 @@
-/**
- * 
- */
-package com.rachum.amir.util.permutation.test;
+package com.rachum.amir.jools;
 
 import static org.junit.Assert.assertEquals;
 
@@ -11,9 +8,6 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.rachum.amir.util.permutation.PermutationGenerator;
-
-
 /**
  * @author Rachum
  *
@@ -21,6 +15,7 @@ import com.rachum.amir.util.permutation.PermutationGenerator;
 public class PermutationGeneratorTest {
 
 	private PermutationGenerator<String> pg;
+
 	/**
 	 * @throws java.lang.Exception
 	 */
@@ -30,18 +25,19 @@ public class PermutationGeneratorTest {
 	}
 
 	/**
-	 * Test method for {@link com.rachum.amir.util.permutation.PermutationGenerator#next()}.
+	 * Test method for
+	 * {@link com.rachum.amir.util.permutation.PermutationGenerator#next()}.
 	 */
 	@Test
 	public void testNext() {
-		assert(pg.hasNext());
+		assert (pg.hasNext());
 		List<String> permutation = pg.next();
 		assertEquals(permutation, Arrays.asList("a", "b", "c"));
-		assert(pg.hasNext());
+		assert (pg.hasNext());
 		permutation = pg.next();
 		assertEquals(permutation, Arrays.asList("a", "c", "b"));
 	}
-	
+
 	@Test
 	public void testGet() {
 		assertEquals(Arrays.asList("a", "b", "c"), pg.get(0));
@@ -51,13 +47,13 @@ public class PermutationGeneratorTest {
 		assertEquals(Arrays.asList("c", "a", "b"), pg.get(4));
 		assertEquals(Arrays.asList("c", "b", "a"), pg.get(5));
 	}
-	
-	@Test(expected=IllegalArgumentException.class)
+
+	@Test(expected = IllegalArgumentException.class)
 	public void testIllegalGetMinus() {
 		pg.get(-1);
 	}
-	
-	@Test(expected=IllegalArgumentException.class)
+
+	@Test(expected = IllegalArgumentException.class)
 	public void testIllegalGetTooBig() {
 		pg.get(6);
 	}

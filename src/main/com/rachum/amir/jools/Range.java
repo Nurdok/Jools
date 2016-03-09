@@ -1,7 +1,4 @@
-/**
- * 
- */
-package com.rachum.amir.util.range;
+package com.rachum.amir.jools;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -15,16 +12,15 @@ import java.util.NoSuchElementException;
 public class Range implements Iterable<Integer>, Iterator<Integer> {
 	final int start, stop, step;
 	int next;
-	
-	
+
 	public Range(final Integer stop) {
 		this(0, stop, 1);
 	}
-	
+
 	public Range(final Integer start, final Integer stop) {
 		this(start, stop, 1);
 	}
-	
+
 	public Range(final Integer start, final Integer stop, final Integer step) {
 		if (step.equals(0)) {
 			throw new IllegalArgumentException();
@@ -34,15 +30,15 @@ public class Range implements Iterable<Integer>, Iterator<Integer> {
 		this.step = step;
 		this.next = start;
 	}
-	
+
 	public List<Integer> toList() {
 		final List<Integer> list = new ArrayList<Integer>();
-		for (int i=start; (step > 0) ? i<stop : i>stop; i+=step) {
+		for (int i = start; (step > 0) ? i < stop : i > stop; i += step) {
 			list.add(i);
 		}
 		return list;
 	}
-	
+
 	@Override
 	public boolean hasNext() {
 		return (next != stop);
